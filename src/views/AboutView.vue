@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h1>F1 Fantasy 2022 setup</h1>
   </div>
 </template>
 

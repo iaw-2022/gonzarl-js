@@ -35,10 +35,24 @@
 #img{
     max-width: 70%;
 }
+.informacion{
+    position:relative
+}
+.imagen{
+    display:block
+}
 .datos{
     max-width: 70%;
     font-size: 24px;
     background-color: rgb(150, 150, 150);
     color:white;
+    position: absolute; 
+    bottom: 0; 
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.70); /* Black see-through */
+    width: 100%;
+    opacity:1;
+    padding: 20px;
+    left:15%
 }
 </style>

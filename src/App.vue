@@ -1,18 +1,20 @@
 <template>
   <Navbar />
   <RouterView />
-  <h1 class="mt-5" align="center">footer</h1>
+  <Footer />
 </template>
 
 
 <script>
 import('@/assets/bootstrap.css');
-import Navbar from './components/Navbar.vue';
+import Navbar from './components/Navbar.vue'
+import Footer from './components/Footer.vue'
 
 export default {
   name: 'App',
   components: {
     Navbar,
+    Footer
   }
 }
 </script>

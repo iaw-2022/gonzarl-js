@@ -1,8 +1,8 @@
 <template>
     <div class="container">
         <div class="titulo d-flex justify-content-around">
-            <div class="nombre">Pierre Gasly</div>
-            <div class="numero">10</div>
+            <div class="nombre-driver">Pierre Gasly</div>
+            <div class="numero-driver">10</div>
         </div>
         <div class="informacion">
             <div class="imagen text-center">
@@ -44,7 +44,6 @@
 .datos{
     max-width: 70%;
     font-size: 24px;
-    background-color: rgb(150, 150, 150);
     color:white;
     position: absolute; 
     bottom: 0; 

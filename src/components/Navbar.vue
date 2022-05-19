@@ -1,7 +1,7 @@
 <template>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/dashboard"><img src="https://i.ibb.co/6Dh6J11/copia.png" alt="fantasy-logo" id="fantasy-logo-navbar"></a>
+        <a class="navbar-brand" href="/"><img src="https://i.ibb.co/6Dh6J11/copia.png" alt="fantasy-logo" id="fantasy-logo-navbar"></a>
         <button
           class="navbar-toggler"
           type="button"

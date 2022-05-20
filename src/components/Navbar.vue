@@ -16,10 +16,10 @@
         <div class="collapse navbar-collapse" id="toggleMobileMenu">
             <ul class="navbar-nav text-center">
                 <li class="nav-item">
-                    <RouterLink class="nav-link active" to="/">Home</RouterLink>
+                    <RouterLink class="nav-link active" to="/">Mi equipo</RouterLink>
                 </li>
                 <li class="nav-item">
-                    <RouterLink class="nav-link active" to="/races">Races</RouterLink>
+                    <RouterLink class="nav-link active" to="/races">Calendario</RouterLink>
                 </li>
             </ul>
         </div>

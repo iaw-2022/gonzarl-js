@@ -41,7 +41,6 @@ export default{
 
 <style>
 .race-carousel{
-    width: 25vw;
     font-family: 'Lato';
     position: relative;
     padding: 2% 1% 0 1%;

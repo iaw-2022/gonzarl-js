@@ -1,4 +1,5 @@
 <template>
+    <RaceBar />
     <div class="container team-content">
         <div class="data d-flex justify-content-between mx-auto">
           <div class="team-name">
@@ -27,7 +28,7 @@
 .team-content{
   padding-top: 1%;
   padding-bottom: 1%;
-  height: 25v;
+  height: 70vh;
   font-size: 30px;
 }
 .data{

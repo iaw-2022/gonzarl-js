@@ -19,7 +19,7 @@
                     <RouterLink class="nav-link active" to="/">Home</RouterLink>
                 </li>
                 <li class="nav-item">
-                    <RouterLink class="nav-link active" to="/Races">Races</RouterLink>
+                    <RouterLink class="nav-link active" to="/races">Races</RouterLink>
                 </li>
             </ul>
         </div>

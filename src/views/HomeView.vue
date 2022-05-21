@@ -10,8 +10,8 @@
           </div>
         </div>
         <div class="drivers d-flex justify-content-evenly">
-          <DriverCard class="driver-card"/>
-          <DriverCard class="driver-card"/>
+          <DriverCard propId="1" class="driver-card"/>
+          <DriverCard propId="1" class="driver-card"/>
         </div>
         <div class="actions d-flex justify-content-between mx-auto">
           <div class="team-budget">
@@ -39,9 +39,8 @@
   padding-top: 1%;
 }
 .driver-card{
-  width: 30%;
-  height: 2v;
   text-align: center;
+  width: 25vw;
 }
 .actions{
   width: 80%;

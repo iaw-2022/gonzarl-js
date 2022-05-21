@@ -1,4 +1,5 @@
 <template>
+<RouterLink :to="`/drivers/${propId}`">
     <div class="driver-card">
         <div class="imagen">
             <img id="card-img" src="https://res.cloudinary.com/drbdzaro6/image/upload/v1652986503/Drivers/tkuye8uqu8ajka0fiwco.png" alt="driver">
@@ -7,19 +8,19 @@
             Pierre Gasly
         </div>
     </div>
+</RouterLink>
 </template>
 
 <script>
 export default {
-    name: 'DriverCard'
+    name: 'DriverCard',
+    props: ['propId']
 }
 </script>
 
 <style>
 .driver-card{
     position:relative;
-    margin-right:2%;
-    margin-left:2%;
     background-color:#ff726f;
 }
 .imagen{
@@ -33,10 +34,9 @@ export default {
     color:white;
     position: absolute; 
     bottom: 0; 
-    background: rgb(0, 0, 0);
-    background: rgba(0, 0, 0, 0.70); /* Black see-through */
+    background: rgba(52, 5, 7, 0.8); /* Black see-through */
     width: 100%;
     opacity:1;
-    padding: 20px;
+    padding: 5%;
 }
 </style>

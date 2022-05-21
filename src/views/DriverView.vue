@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container driver-description">
         <div class="titulo d-flex justify-content-around">
             <div class="nombre-driver">Pierre Gasly</div>
             <div class="numero-driver">10</div>
@@ -28,6 +28,9 @@
 </script>
 
 <style>
+.driver-description{
+    padding-bottom: 2%;
+}
 .titulo{
     font-size: 50px;
     font-weight: 600;
@@ -36,7 +39,7 @@
     max-width: 70%;
 }
 .informacion{
-    position:relative
+    position:relative;
 }
 .imagen{
     display:block

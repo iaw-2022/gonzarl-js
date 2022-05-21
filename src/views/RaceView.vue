@@ -1,7 +1,7 @@
 <template>
     <div class="race-view">
         <div class="titulo text-center">Baku Grand Prix</div>
-        <RaceCarousel class="race-photos mx-auto"/>
+        <Carousel propId="1" class="race-photos mx-auto"/>
     </div>
 </template>
 
@@ -13,9 +13,7 @@
     font-size: 50px;
 }
 .race-photos{
+    padding-top:2%;
     width: 60vw;
-}
-.race-information{
-    display: none;
 }
 </style>

@@ -12,7 +12,7 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },{
-      path: '/driver/:id',
+      path: '/drivers/:id',
       name: 'driver',
       component: DriverView
     },{

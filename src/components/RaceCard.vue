@@ -2,17 +2,10 @@
 <RouterLink :to="`/races/${propId}`">
     <div class="race-carousel">
         <div class="photo-gallery">
-            <Carousel :propId="`${propId}`" />
+            <img id="flag" src="https://i.ibb.co/pLTsfhM/Azerbaiyan.png" alt="flag">
         </div>
         <div class="race-information">
-            <div class="grand-prix d-flex justify-content-between">
-                <div class="grand-prix-name">Baku Grand Prix</div>
-                <div class="grand-prix-style">Circuito callejero</div>
-            </div>
-            <div class="country-date  d-flex justify-content-between">
-                <div class="country">Azerbaiyan</div>
-                <div class="date">12 de Junio</div>
-            </div>
+            <div class="grand-prix-name">Baku Grand Prix</div>
         </div>
     </div>
 </RouterLink>
@@ -30,6 +23,9 @@ export default{
     font-family: 'Lato';
     position: relative;
     padding: 2% 1% 0 1%;
+}
+#flag{
+    width: 5vw;
 }
 .race-information{
     font-size: 20px;

@@ -1,10 +1,10 @@
 <template>
-    <div class="footer d-flex justify-content-evenly">
+    <div class="footer d-flex justify-content-evenly bottom-0 left-0 w-full bg-black">
         <div class="company">
             © F1 Fantasy 2022 
         </div>
         <div class="logo">
-            <img id="footer-logo" src="https://i.ibb.co/WFwShmV/dark-logo.png" alt="f1-fantasy=footer">
+            <img class="mx-auto" id="footer-logo" src="https://i.ibb.co/WFwShmV/dark-logo.png" alt="f1-fantasy=footer">
         </div>
         <div class="d-flex justify-content-center">
             <div class="instagram mx-2">
@@ -29,16 +29,14 @@
 <style>
 .footer{
     align-items: center;
-    font-family: 'Lato';
     text-align: center;
-    background-color: rgb(52, 5, 7);
 }
 .company{
     font-size: 24px;
     color: white;
 }
 #footer-logo{
-    max-width:10%
+    max-width:5vw;
 }
 .bi{
     font-size: 2em;

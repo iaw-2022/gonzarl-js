@@ -1,13 +1,15 @@
 <template>
 <RouterLink :to="`/races/${propId}`">
-    <div class="race-carousel">
-        <div class="photo-gallery">
-            <img id="flag" src="https://i.ibb.co/pLTsfhM/Azerbaiyan.png" alt="flag">
-        </div>
-        <div class="race-information">
-            <div class="grand-prix-name">Baku Grand Prix</div>
-        </div>
+    <a
+    href=""
+    class="relative block overflow-hidden bg-center bg-cover rounded-xl"
+    style="background-image: url(https://countryflagsapi.com/svg/it)">
+
+    <div class="relative p-8 pt-20 text-white bg-black opacity-60 hover:opacity-90">
+        <h5 class="text-3xl font-bold">Imola Grand Prix</h5>
+        <p class="mb-0">Fecha: 24/4</p>
     </div>
+    </a>
 </RouterLink>
 </template>
 
@@ -19,16 +21,5 @@ export default{
 </script>
 
 <style>
-.race-carousel{
-    font-family: 'Lato';
-    position: relative;
-    padding: 2% 1% 0 1%;
-}
-#flag{
-    width: 5vw;
-}
-.race-information{
-    font-size: 20px;
-    color: black;
-}
+    
 </style>

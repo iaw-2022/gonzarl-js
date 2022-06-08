@@ -1,7 +1,9 @@
 <template>
-  <Navbar />
-  <RouterView />
-  <Footer />
+  <div class="flex flex-col justify-between">
+    <Navbar />
+    <RouterView />
+    <Footer/>
+  </div>
 </template>
 
 
@@ -18,10 +20,3 @@ export default {
   }
 }
 </script>
-
-
-<style>
-.container{
-  font-family: 'Lato';
-}
-</style>

@@ -3,7 +3,7 @@
         <GoBackButton class="xl:ml-20 md:ml-16"/>
         <div class="titulo text-center mb-4">Baku Grand Prix</div>
             <div class="container">
-                <div class="py-8 px-8 mx-auto flex flex-col items-center bg-gray-100 rounded-lg border shadow-md md:flex-row md:max-w-xl">
+                <div class="py-8 px-8 mx-auto flex flex-col items-center bg-gray-100 rounded-lg border shadow-md md:flex-row md:max-w-xl xl:max-w-2xl">
                     <img class="object-cover xl:w-72 xl:h-48 xl:rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src="https://res.cloudinary.com/drbdzaro6/image/upload/v1653435122/Races/Baku_stma86.png" alt="">
                     <div class="flex flex-col justify-between leading-normal">
                     <h5 class="p-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-black">Gran Premio de Baku 2022</h5>

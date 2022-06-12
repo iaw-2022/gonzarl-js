@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="flex pb-4">
-                <h2 class="pt-4">Resultado de la carrera &#127937</h2>
+                <h2 class="pt-4 px-4">Resultado de la carrera &#127937</h2>
             </div>
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-full text-sm text-center text-gray-500">

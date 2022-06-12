@@ -1,6 +1,6 @@
 <template>
 
-<div class="bg-red-700">
+<div class="bg-red-700 px-2">
   <div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between flex-wrap">
       <div class="w-0 flex-1 flex items-center">
@@ -10,13 +10,13 @@
           </svg>
         </span>
         <p class="ml-3 mb-1 text-xl font-medium text-white truncate">
-          <span class="md:hidden">Proxima carrera: Baku Grand Prix</span>
-          <span class="hidden md:inline">Proxima carrera: Baku Grand Prix - 12 de Junio</span>
+          <span class="md:hidden sm:inline">Proxima carrera:</span>
+          <span class="hidden md:inline sm:hidden">Proxima carrera: Baku Grand Prix - 12 de Junio</span>
         </p>
       </div>
       <RouterLink to="/races/1">
-        <div class="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
-          <div class="hover:text-red-900 justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-red-700 bg-white">Ir a la carreara</div>
+        <div class="order-3 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
+          <div class="hover:text-red-900 justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-red-700 bg-white">Ir a la carrera</div>
         </div>
       </RouterLink>
     </div>

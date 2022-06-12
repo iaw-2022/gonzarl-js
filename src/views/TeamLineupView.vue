@@ -1,28 +1,32 @@
 <template>
-    <div class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-4 sm:py-8">
-        <div class="relative bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10">
-            <div class="mx-auto max-w-xl">
-            <GoBackButton/>    
-            <div class="text-3xl text-center text-gray-900 p-2">The Fastest Team</div>
-            <div class="text-2xl text-gray-900 p-2">75 puntos</div>
-                <div class="divide-y divide-gray-300/50">
-                    <div class="py-4 text-base leading-7 text-gray-600 ">
-                        <p class="text-xl">Pilotos seleccionados:</p>
-                        <div class="grid xl:grid-cols-2 sm:grid-cols-1 gap-4 my-4">
-                            <DriverFormCard propId="1" class="p-2"/>
-                            <DriverFormCard propId="2" class="p-2"/>
+    <div class="relative flex flex-row items-center justify-center overflow-hidden bg-gray-50 py-4 sm:py-8">
+        <div class="bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10">
+            <div class="max-w-xl">
+                <GoBackButton/>    
+                <div class="text-3xl text-center text-gray-900 p-2">The Fastest Team</div>
+                <div class="text-2xl text-gray-900 p-2">75 puntos</div>
+                    <div class="divide-y divide-gray-300/50">
+                        <div class="py-4 text-base leading-7 text-gray-600 ">
+                            <p class="text-xl">Pilotos seleccionados:</p>
+                            <div class="grid xl:grid-cols-2 sm:grid-cols-1 gap-4 my-4">
+                                <DriverFormCard propId="1" class="p-2"/>
+                                <DriverFormCard propId="2" class="p-2"/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="pt-4 text-base font-semibold leading-7">
-                        <p class="text-gray-900">Dinero disponible: 0 USD</p>
-                        <div class="flex items-center justify-center ">
-                            <button type="button" data-modal-toggle="popup-modal" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-500 hover:bg-red-700">Confirmar pilotos</button>
+                        <div class="pt-4 text-base font-semibold leading-7">
+                            <p class="text-gray-900">Dinero disponible: 0 USD</p>
+                            <div class="flex items-center justify-center ">
+                                <button type="button" data-modal-toggle="popup-modal" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-500 hover:bg-red-700">Guardar cambios</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div id="list" class="xl:w-96 sm:w-12">
+                <h3>Seleccione:</h3>
+                <DriverList />
+            </div>
         </div>
-    </div>
     
     <!-- Modal -->
     <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full">
@@ -46,3 +50,14 @@
     </div>
 
 </template>
+
+<script>
+export default {
+    methods: {
+        openDriverList(){
+            list = document.getElementById("list")
+            list.hidden = false
+        }
+    }
+}
+</script>

@@ -16,6 +16,12 @@
 <script>
 export default {
     name: 'DriverFormCard',
-    props: ['propId']
+    props: ['driverId'],
+    methods: {
+        SendNewDriver(){
+            alert(this.driverId)
+            this.$$emit("listenNewDriver", this.driverId)
+        }
+    }
 }
 </script>

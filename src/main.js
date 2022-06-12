@@ -9,6 +9,7 @@ import DriverFormCard from './components/DriverFormCard.vue'
 import RaceBar from './components/Racebar.vue'
 import RaceCard from './components/RaceCard.vue'
 import GoBackButton from './components/GoBackButton.vue'
+import DriverList from './components/DriverList.vue'
 
 const app = createApp(App)
 
@@ -19,5 +20,6 @@ app.component('DriverFormCard', DriverFormCard)
 app.component('RaceBar', RaceBar)
 app.component('RaceCard', RaceCard)
 app.component('GoBackButton', GoBackButton)
+app.component('DriverList', DriverList)
 
 app.mount('#app')

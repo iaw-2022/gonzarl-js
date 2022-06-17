@@ -1,27 +1,29 @@
 <template>
-    <div class="races-display">
-        <div class="titulo text-center">Calendario</div>
-        <div class="races row mx-auto">
-            <RaceCard propId="1" class="race-element col-md-3"/>
-            <RaceCard propId="2" class="race-element col-md-3"/>
-            <RaceCard propId="3" class="race-element col-md-3"/>
-            <RaceCard propId="4" class="race-element col-md-3"/>
-            <RaceCard propId="5" class="race-element col-md-3"/>
-            <RaceCard propId="6" class="race-element col-md-3"/>
-            <RaceCard propId="7" class="race-element col-md-3"/>
+    <div>
+        <div>
+            <h2 class="text-center text-3xl uppercase py-4">Calendario</h2>
+        </div>
+        <div class="grid grid-cols-4 gap-8 p-4">
+            <RaceCard v-for="race in races" :key="race.id" :propId="`${race.id}`" />
         </div>
     </div>
 </template>
 
-<style>
-.titulo{
-    font-size: 50px;
+<script>
+const f1API = "https://f1fantasy-api.herokuapp.com/";
+export default {
+    data(){
+        this.getRaces();
+        return{
+            races: []
+        }
+    },
+    methods:{
+        async getRaces(){
+            const response = await fetch(`${f1API}races`);
+            this.races = await response.json();
+            console.log(races)
+        }
+    }
 }
-.races{
-    width: 90vw;
-}
-.race-element{
-    padding-top: 1em;
-    padding-bottom: 1em;
-}
-</style>
+</script>

@@ -1,10 +1,14 @@
 <template>
-    <RaceBar />
+    <RaceBar 
+      :propId="`${race.id}`"
+      :propCity="`${race.city}`"
+      :propDate="`${race.date}`"
+    />
     <div class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-4 sm:py-8">
       <div class="relative bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10">
         <div class="mx-auto max-w-3xl">
           <div class="flex items-center justify-evenly">
-            <h2 class="text-3xl text-gray-900 p-2 text-center">The Fastest Team</h2>
+            <h2 class="text-3xl text-gray-900 p-2 text-center">{{team.name}}</h2>
             <RouterLink to="/team/name">
               <div class="w-12 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-500 hover:bg-red-700">
                 <span>
@@ -15,14 +19,24 @@
               </div>
             </RouterLink>
           </div>
-          <div class="text-2xl text-gray-900 p-2">75 puntos</div>
+          <div class="text-2xl text-gray-900 p-2">{{team.points}} puntos</div>
           <div class="divide-y divide-gray-300/50">
-            <div class="grid xl:grid-cols-2 sm:grid-cols-1 gap-4 my-4">
-              <DriverCard propId="1" class="p-2"/>
-              <DriverCard propId="2" class="p-2"/>
+            <div v-if="drivers.length" class="grid xl:grid-cols-2 sm:grid-cols-1 gap-4 my-4">
+              <DriverCard 
+                v-for="driver in drivers" :key="driver.id"
+                :propId="`${driver.id}`"
+                :propName="`${driver.name}`"
+                :propValue="`${driver.value}`"
+                :propImage="`${driver.path}`"
+              class="p-2"/>
+            </div>
+            <div v-else>
+                <RouterLink to='/team/drivers' class="flex items-center justify-center">
+                <div class="px-4 py-2 my-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-500 hover:bg-red-700">Asignar pilotos</div>
+              </RouterLink>
             </div>
             <div class="pt-8 text-base font-semibold leading-7">
-              <p class="text-gray-900">Dinero disponible: 0 USD</p>
+              <p class="text-gray-900">Dinero disponible: {{team.budget}} USD</p>
               <RouterLink to='/team/drivers' class="flex items-center justify-center">
                 <div class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-500 hover:bg-red-700">Cambiar pilotos</div>
               </RouterLink>
@@ -33,3 +47,39 @@
     </div>
 
 </template>
+
+<script>
+const f1API = "https://f1fantasy-api.herokuapp.com/";
+let race;
+let team;
+
+export default {
+  data(){
+    team = this.getTeam(1)
+      .then(() => this.getDrivers(this.team.id))
+    race = this.getNextRace();
+    return {
+      team,
+      race,
+      drivers: [],
+    }
+  },
+  methods:{
+    async getTeam(id){
+      const response = await fetch(`${f1API}teams/${id}`);
+      this.team = await response.json();
+      //console.log(this.team)
+    },
+    async getNextRace(){
+      const response = await fetch(`${f1API}races/next`);
+      this.race = await response.json();
+      //console.log(this.race)
+    },
+    async getDrivers(id){
+      const response = await fetch(`${f1API}drivers_in_teams/${id}`);
+      this.drivers = await response.json();
+      //console.log(this.drivers)
+    }
+  }
+}
+</script>

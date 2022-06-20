@@ -19,15 +19,6 @@
             </div>
         </div>
     </a>
-    <!-- 
-    <a href="" class="block overflow-hidden rounded-2xl">
-    <img class="object-cover w-full h-56" src="https://res.cloudinary.com/drbdzaro6/image/upload/v1652986503/Drivers/tkuye8uqu8ajka0fiwco.png" alt="" />
-
-    <div class="p-4 bg-red-900 text-center">
-        <h5 class="text-2xl text-white">Pierre Gasly</h5>
-        <p class="mt-1 text-xl text-white">Valor: 15 USD</p>
-    </div>
-    </a> -->
 </RouterLink>
 </template>
 

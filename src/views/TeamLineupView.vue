@@ -3,18 +3,27 @@
         <div class="bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10">
             <div class="max-w-xl">
                 <GoBackButton/>    
-                <div class="text-3xl text-center text-gray-900 p-2">The Fastest Team</div>
-                <div class="text-2xl text-gray-900 p-2">75 puntos</div>
+                <div class="text-3xl text-center text-gray-900 p-2">{{team.name}}</div>
+                <div class="text-2xl text-gray-900 p-2">{{team.points}} puntos</div>
                     <div class="divide-y divide-gray-300/50">
                         <div class="py-4 text-base leading-7 text-gray-600 ">
                             <p class="text-xl">Pilotos seleccionados:</p>
-                            <div class="grid xl:grid-cols-2 sm:grid-cols-1 gap-4 my-4">
-                                <DriverFormCard propId="1" class="p-2"/>
-                                <DriverFormCard propId="2" class="p-2"/>
+                            <div v-if="drivers.length" class="grid xl:grid-cols-2 sm:grid-cols-1 gap-4 my-4">
+                                <DriverFormCard 
+                                    v-for="driver in drivers" :key="driver.id"
+                                    :propId="`${driver.id}`"
+                                    :propName="`${driver.name}`"
+                                    :propValue="`${driver.value}`"
+                                    :propImage="`${driver.path}`"
+                                class="p-2"/>
+                            </div>
+                            <div v-else>
+                                <p class="text-xl font-bold">Selecciona dos pilotos</p>
+                                <DriverList :propDrivers="driverList" />
                             </div>
                         </div>
                         <div class="pt-4 text-base font-semibold leading-7">
-                            <p class="text-gray-900">Dinero disponible: 0 USD</p>
+                            <p class="text-gray-900">Dinero disponible: {{team.budget}} USD</p>
                             <div class="flex items-center justify-center ">
                                 <button type="button" data-modal-toggle="popup-modal" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-500 hover:bg-red-700">Guardar cambios</button>
                             </div>
@@ -24,7 +33,7 @@
             </div>
             <div id="list" class="xl:w-96 sm:w-12">
                 <h3>Seleccione:</h3>
-                <DriverList />
+                <DriverList :propDrivers="driverList" />
             </div>
         </div>
     
@@ -52,8 +61,35 @@
 </template>
 
 <script>
+const f1API = "https://f1fantasy-api.herokuapp.com/";
+let team;
 export default {
+    data(){
+        team = this.getTeam(this.$route.params.id)
+        this.getDrivers(this.$route.params.id)
+        this.getDriverList()
+        return{
+            team,
+            drivers: [],
+            driverList: []
+        }
+    },
     methods: {
+        async getTeam(id){
+            const response = await fetch(`${f1API}teams/${id}`);
+            this.team = await response.json();
+            //console.log(this.team)
+        },
+        async getDrivers(id){
+            const response = await fetch(`${f1API}drivers_in_teams/${id}`);
+            this.drivers = await response.json();
+            //console.log(this.drivers)
+        },
+        async getDriverList(id){
+            const response = await fetch(`${f1API}drivers/points`);
+            this.driverList = await response.json();
+            //console.log(this.driverList)
+        },
         openDriverList(){
             list = document.getElementById("list")
             list.hidden = false

@@ -7,6 +7,7 @@
     "preview": "vite preview --port 5050"
   },
   "dependencies": {
+    "@auth0/auth0-vue": "^1.0.1",
     "@headlessui/vue": "^1.6.3",
     "@vue-hero-icons/outline": "^1.7.2",
     "bootstrap-icons": "^1.8.2",

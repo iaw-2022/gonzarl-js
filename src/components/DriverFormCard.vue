@@ -1,5 +1,5 @@
 <template>
-    <div class="block overflow-hidden rounded-lg w-52 h-72">
+    <div class="block overflow-hidden rounded-lg w-52 h-68">
         <img class="object-cover w-full h-48" :src="`${propImage}`" alt="" />
 
         <div class="p-1 bg-red-900 text-center">

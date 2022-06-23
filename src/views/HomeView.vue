@@ -39,7 +39,7 @@
                 :propName="`${driver.name}`"
                 :propValue="`${driver.value}`"
                 :propImage="`${driver.path}`"
-              class="p-2"/>
+              class="p-2 mx-auto"/>
             </div>
             <div v-else>
               <RouterLink :to="`/team/create/${team.id}`" class="flex items-center justify-center">

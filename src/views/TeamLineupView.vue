@@ -10,6 +10,7 @@
                         <div v-if="state===0">
                             <div class="pt-4 text-base leading-7 text-gray-600 ">
                                 <p class="text-xl text-gray-900 text-center">Dinero total disponible: 1000000 USD</p>
+                                <p class="text-xl text-gray-900 text-center">Clickea sobre un piloto para cambiarlo</p>
                                 <p class="text-xl font-bold text-center">Pilotos seleccionados:</p>
                                 <div class="grid xl:grid-cols-2 sm:grid-cols-1 gap-4 my-4">
                                     <DriverFormCard 
@@ -110,6 +111,7 @@ const f1API = "https://f1fantasy-api.herokuapp.com/";
 let team;
 let state = 0;
 let cumplenBudget = true;
+let token;
 
 export default {
     setup(){
@@ -123,7 +125,7 @@ export default {
       };
     },
     data(){
-        team = this.getTeam(this.$route.params.id).then(() => this.getDrivers(this.team.id))
+        team = this.getTeam().then(() => this.getDrivers(this.team.id))
         this.getDriverList()
         return{
             team,
@@ -134,10 +136,16 @@ export default {
         }
     },
     methods: {
-        async getTeam(id){
-            const response = await fetch(`${f1API}teams/${id}`);
+        async getTeam(){
+            this.token = await this.$auth0.getAccessTokenSilently();
+            const response = await fetch(`${f1API}teams/`, {
+                method: 'GET',
+                headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.token}`
+                }
+            });
             this.team = await response.json();
-            //console.log(this.team)
         },
         async getDrivers(id){
             const response = await fetch(`${f1API}drivers_in_teams/${id}`);
@@ -154,8 +162,7 @@ export default {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': 'http://localhost:3000/',
-                'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImlNSndoNl9pNWppOXBCUDRtbG9VZiJ9.eyJpc3MiOiJodHRwczovL2Rldi12MDl3cjdzZy51cy5hdXRoMC5jb20vIiwic3ViIjoiUmFIYjlDa0lPNFVjam5uUXIxcTM4RERWTWVxbGxtQ05AY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vZjEtZmFudGFzeS9hcGkiLCJpYXQiOjE2NTM4NjQ4MjQsImV4cCI6MTY1NjQ1NjgyNCwiYXpwIjoiUmFIYjlDa0lPNFVjam5uUXIxcTM4RERWTWVxbGxtQ04iLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.TmdGKJRvaN4L_fK9ExE0qko2gBmWdISvCyA6SF0d3qB-X1QEDgLReb3AzEPiNKECrfWkHNv9HoA3sjWHcNhplNFXgYuOVAd_zpvtTJX8hD2at1NBsQ3ZudKlJs5bVJDE21iw4lnyj1U1o-yHHBv6OQRJIBW20JiT7yygYDpLwFcZDLgrJAmgkbkn6sSirhcEoRQlX2UxVQuK2CYPfGDnryvIwDMIP03dVfEXpJQzMN8CSheIZ7UjyGcqabkQMTt2o5c6rRpm_2Ppxa0DPW3rbtk669yp8ABqG01HRo5uB0DTKjIRYgCwQxsRjw7p40cfKj_TPlP6A2yJftoaOXD8BQ'
+                'Authorization': `Bearer ${this.token}`
             },
             body: JSON.stringify({driver_1_id: this.drivers[0].id, driver_2_id: this.drivers[1].id})
             });

@@ -42,14 +42,14 @@
               class="p-2"/>
             </div>
             <div v-else>
-              <RouterLink :to="`/team/create/${userId}`" class="flex items-center justify-center">
+              <RouterLink :to="`/team/create/${team.id}`" class="flex items-center justify-center">
                 <div class="px-4 py-2 my-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-500 hover:bg-red-700">Asignar pilotos</div>
               </RouterLink>
             </div>
             <div class="pt-8 text-base font-semibold leading-7">
               <p class="text-gray-900">Dinero disponible: {{team.budget}} USD</p>
               <div v-if="drivers.length" class="flex flex-row gap-4 justify-center">
-                  <RouterLink  :to="`/team/drivers/${userId}`">
+                  <RouterLink  :to="`/team/drivers/${team.id}`">
                     <div class="px-4 py-2 border border-transparent rounded-md shadow-sm font-medium text-white bg-red-500 hover:bg-red-700">Cambiar pilotos</div>
                   </RouterLink>
                   <button type="button" data-modal-toggle="deleteDriversModal" data-bs-toggle="modal" data-bs-target="#deleteDriversModal" 
@@ -226,7 +226,6 @@ import { useAuth0 } from '@auth0/auth0-vue';
 const f1API = "https://f1fantasy-api.herokuapp.com/";
 let race;
 let team;
-let userId = 3;
 let token;
 
 export default {
@@ -241,24 +240,30 @@ export default {
       };
   },
   data(){
-    team = this.getTeam(userId).then(() => this.getDrivers(this.team.id))
+    team = this.getTeam().then(() => this.getDrivers(this.team.id))
     race = this.getNextRace();
     return {
       team,
       race,
       drivers: [],
-      userId,
       hasTeam: false
     }
   },
   methods:{
-    async getTeam(id){
-      const response = await fetch(`${f1API}teams/${id}`);
+    async getTeam(){
+      this.token = await this.$auth0.getAccessTokenSilently();
+      console.log(this.token);
+      const response = await fetch(`${f1API}teams/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.token}`
+        }
+      });
       this.team = await response.json();
       if (response.status === 200){
         this.hasTeam = true;
       }
-      //console.log(this.team)
     },
     async getNextRace(){
       const response = await fetch(`${f1API}races/next`);
@@ -276,8 +281,7 @@ export default {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'http://localhost:3000/',
-          'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImlNSndoNl9pNWppOXBCUDRtbG9VZiJ9.eyJpc3MiOiJodHRwczovL2Rldi12MDl3cjdzZy51cy5hdXRoMC5jb20vIiwic3ViIjoiUmFIYjlDa0lPNFVjam5uUXIxcTM4RERWTWVxbGxtQ05AY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vZjEtZmFudGFzeS9hcGkiLCJpYXQiOjE2NTM4NjQ4MjQsImV4cCI6MTY1NjQ1NjgyNCwiYXpwIjoiUmFIYjlDa0lPNFVjam5uUXIxcTM4RERWTWVxbGxtQ04iLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.TmdGKJRvaN4L_fK9ExE0qko2gBmWdISvCyA6SF0d3qB-X1QEDgLReb3AzEPiNKECrfWkHNv9HoA3sjWHcNhplNFXgYuOVAd_zpvtTJX8hD2at1NBsQ3ZudKlJs5bVJDE21iw4lnyj1U1o-yHHBv6OQRJIBW20JiT7yygYDpLwFcZDLgrJAmgkbkn6sSirhcEoRQlX2UxVQuK2CYPfGDnryvIwDMIP03dVfEXpJQzMN8CSheIZ7UjyGcqabkQMTt2o5c6rRpm_2Ppxa0DPW3rbtk669yp8ABqG01HRo5uB0DTKjIRYgCwQxsRjw7p40cfKj_TPlP6A2yJftoaOXD8BQ'
+          'Authorization': `Bearer ${this.token}`
         },
         body: JSON.stringify({name: name.value, user_id: "1"})
       });
@@ -290,8 +294,7 @@ export default {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'http://localhost:3000/',
-          'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImlNSndoNl9pNWppOXBCUDRtbG9VZiJ9.eyJpc3MiOiJodHRwczovL2Rldi12MDl3cjdzZy51cy5hdXRoMC5jb20vIiwic3ViIjoiUmFIYjlDa0lPNFVjam5uUXIxcTM4RERWTWVxbGxtQ05AY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vZjEtZmFudGFzeS9hcGkiLCJpYXQiOjE2NTM4NjQ4MjQsImV4cCI6MTY1NjQ1NjgyNCwiYXpwIjoiUmFIYjlDa0lPNFVjam5uUXIxcTM4RERWTWVxbGxtQ04iLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.TmdGKJRvaN4L_fK9ExE0qko2gBmWdISvCyA6SF0d3qB-X1QEDgLReb3AzEPiNKECrfWkHNv9HoA3sjWHcNhplNFXgYuOVAd_zpvtTJX8hD2at1NBsQ3ZudKlJs5bVJDE21iw4lnyj1U1o-yHHBv6OQRJIBW20JiT7yygYDpLwFcZDLgrJAmgkbkn6sSirhcEoRQlX2UxVQuK2CYPfGDnryvIwDMIP03dVfEXpJQzMN8CSheIZ7UjyGcqabkQMTt2o5c6rRpm_2Ppxa0DPW3rbtk669yp8ABqG01HRo5uB0DTKjIRYgCwQxsRjw7p40cfKj_TPlP6A2yJftoaOXD8BQ'
+          'Authorization': `Bearer ${this.token}`
         },
         body: JSON.stringify({name: name.value})
       });
@@ -302,8 +305,7 @@ export default {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'http://localhost:3000/',
-          'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImlNSndoNl9pNWppOXBCUDRtbG9VZiJ9.eyJpc3MiOiJodHRwczovL2Rldi12MDl3cjdzZy51cy5hdXRoMC5jb20vIiwic3ViIjoiUmFIYjlDa0lPNFVjam5uUXIxcTM4RERWTWVxbGxtQ05AY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vZjEtZmFudGFzeS9hcGkiLCJpYXQiOjE2NTM4NjQ4MjQsImV4cCI6MTY1NjQ1NjgyNCwiYXpwIjoiUmFIYjlDa0lPNFVjam5uUXIxcTM4RERWTWVxbGxtQ04iLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.TmdGKJRvaN4L_fK9ExE0qko2gBmWdISvCyA6SF0d3qB-X1QEDgLReb3AzEPiNKECrfWkHNv9HoA3sjWHcNhplNFXgYuOVAd_zpvtTJX8hD2at1NBsQ3ZudKlJs5bVJDE21iw4lnyj1U1o-yHHBv6OQRJIBW20JiT7yygYDpLwFcZDLgrJAmgkbkn6sSirhcEoRQlX2UxVQuK2CYPfGDnryvIwDMIP03dVfEXpJQzMN8CSheIZ7UjyGcqabkQMTt2o5c6rRpm_2Ppxa0DPW3rbtk669yp8ABqG01HRo5uB0DTKjIRYgCwQxsRjw7p40cfKj_TPlP6A2yJftoaOXD8BQ'
+          'Authorization': `Bearer ${this.token}`
         }
       });
       document.location.reload(true);
@@ -312,25 +314,10 @@ export default {
       const response = await fetch(`${f1API}drivers_in_teams/${id}`, {
         method: 'DELETE',
         headers: {
-          'Access-Control-Allow-Origin': 'http://localhost:3000/',
-          'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImlNSndoNl9pNWppOXBCUDRtbG9VZiJ9.eyJpc3MiOiJodHRwczovL2Rldi12MDl3cjdzZy51cy5hdXRoMC5jb20vIiwic3ViIjoiUmFIYjlDa0lPNFVjam5uUXIxcTM4RERWTWVxbGxtQ05AY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vZjEtZmFudGFzeS9hcGkiLCJpYXQiOjE2NTM4NjQ4MjQsImV4cCI6MTY1NjQ1NjgyNCwiYXpwIjoiUmFIYjlDa0lPNFVjam5uUXIxcTM4RERWTWVxbGxtQ04iLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.TmdGKJRvaN4L_fK9ExE0qko2gBmWdISvCyA6SF0d3qB-X1QEDgLReb3AzEPiNKECrfWkHNv9HoA3sjWHcNhplNFXgYuOVAd_zpvtTJX8hD2at1NBsQ3ZudKlJs5bVJDE21iw4lnyj1U1o-yHHBv6OQRJIBW20JiT7yygYDpLwFcZDLgrJAmgkbkn6sSirhcEoRQlX2UxVQuK2CYPfGDnryvIwDMIP03dVfEXpJQzMN8CSheIZ7UjyGcqabkQMTt2o5c6rRpm_2Ppxa0DPW3rbtk669yp8ABqG01HRo5uB0DTKjIRYgCwQxsRjw7p40cfKj_TPlP6A2yJftoaOXD8BQ'
+          'Authorization': `Bearer ${this.token}`
         }
       });
       document.location.reload(true);
-    },
-    enableCreateButton(){
-      let button = document.getElementById("sendCreate");
-      let input = document.getElementById("createName");
-      if (input.value.length > 0){
-        button.disabled = false;
-      }
-    },
-    enableChangeButton(){
-      let button = document.getElementById("sendChange");
-      let input = document.getElementById("updateName");
-      if (input.value.length > 0){
-        button.disabled = false;
-      }
     }
   }
 }

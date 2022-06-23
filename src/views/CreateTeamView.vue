@@ -37,9 +37,9 @@
                 class="p-2"/>
               </div> 
               <div v-if="cumplenBudget === true" class="flex flex-col justify-center">
-                <button @click="sendDrivers()" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-2xl font-medium text-white bg-red-500 hover:bg-red-700">
+                <RouterLink :to="`/`" @click="sendDrivers()" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-2xl text-center font-medium text-white bg-red-500 hover:bg-red-700">
                   Cargar pilotos
-                </button>
+                </RouterLink>
               </div>
               <div v-else class="flex flex-col justify-center">
                 <p class="text-lg font-bold text-center">Te pasaste del dinero que tenias disponible</p>
@@ -70,8 +70,8 @@ let team;
 let driver1;
 let driver2;
 let state = 0;
-let userId = 1;
 let cumplenBudget = true;
+let token;
 
 export default {
   setup(){
@@ -85,12 +85,11 @@ export default {
       };
   },
   data(){
-    team = this.getTeam(userId)
+    team = this.getTeam()
     this.getDriverList()
     return {
       team,
       driverList: [],
-      userId,
       driver1,
       driver2,
       state,
@@ -98,13 +97,16 @@ export default {
     }
   },
   methods:{
-    async getTeam(id){
-      const response = await fetch(`${f1API}teams/${id}`);
+    async getTeam(){
+      this.token = await this.$auth0.getAccessTokenSilently();
+      const response = await fetch(`${f1API}teams/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.token}`
+        }
+      });
       this.team = await response.json();
-      if (response.status === 200){
-        this.hasTeam = true;
-      }
-      //console.log(this.team)
     },
     async getDriverList(){
         const response = await fetch(`${f1API}drivers/points`);
@@ -116,8 +118,7 @@ export default {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'http://localhost:3000/',
-            'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImlNSndoNl9pNWppOXBCUDRtbG9VZiJ9.eyJpc3MiOiJodHRwczovL2Rldi12MDl3cjdzZy51cy5hdXRoMC5jb20vIiwic3ViIjoiUmFIYjlDa0lPNFVjam5uUXIxcTM4RERWTWVxbGxtQ05AY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vZjEtZmFudGFzeS9hcGkiLCJpYXQiOjE2NTM4NjQ4MjQsImV4cCI6MTY1NjQ1NjgyNCwiYXpwIjoiUmFIYjlDa0lPNFVjam5uUXIxcTM4RERWTWVxbGxtQ04iLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.TmdGKJRvaN4L_fK9ExE0qko2gBmWdISvCyA6SF0d3qB-X1QEDgLReb3AzEPiNKECrfWkHNv9HoA3sjWHcNhplNFXgYuOVAd_zpvtTJX8hD2at1NBsQ3ZudKlJs5bVJDE21iw4lnyj1U1o-yHHBv6OQRJIBW20JiT7yygYDpLwFcZDLgrJAmgkbkn6sSirhcEoRQlX2UxVQuK2CYPfGDnryvIwDMIP03dVfEXpJQzMN8CSheIZ7UjyGcqabkQMTt2o5c6rRpm_2Ppxa0DPW3rbtk669yp8ABqG01HRo5uB0DTKjIRYgCwQxsRjw7p40cfKj_TPlP6A2yJftoaOXD8BQ'
+            'Authorization': `Bearer ${this.token}`
           },
           body: JSON.stringify({team_id: this.team.id, driver_1_id: this.driver1.id, driver_2_id: this.driver2.id})
         });

@@ -50,10 +50,10 @@
               <p class="text-gray-900">Dinero disponible: {{team.budget}} USD</p>
               <div v-if="drivers.length" class="flex flex-row gap-4 justify-center">
                   <RouterLink  :to="`/team/drivers/${team.id}`">
-                    <div class="px-4 py-2 border border-transparent rounded-md shadow-sm font-medium text-white bg-red-500 hover:bg-red-700">Cambiar pilotos</div>
+                    <div class="px-4 py-2 border border-transparent rounded-md shadow-sm font-medium text-white text-center bg-red-500 hover:bg-red-700">Cambiar pilotos</div>
                   </RouterLink>
                   <button type="button" data-modal-toggle="deleteDriversModal" data-bs-toggle="modal" data-bs-target="#deleteDriversModal" 
-                    class="px-4 py-2 border border-transparent rounded-md shadow-sm font-medium text-white bg-red-500 hover:bg-red-700">Eliminar pilotos</button>
+                    class="px-4 py-2 border border-transparent rounded-md shadow-sm font-medium text-center text-white bg-red-500 hover:bg-red-700">Eliminar pilotos</button>
               </div>
             </div>
           </div>

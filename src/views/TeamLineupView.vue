@@ -4,13 +4,13 @@
             <div class="max-w-xl">
                 <GoBackButton/>
                 <div v-if="isAuthenticated">    
+                    <p class="text-xl text-gray-900 p-2 text-center border border-4 rounded-xl border-red-500">Clickea sobre un piloto para cambiarlo</p>
                     <div class="text-3xl text-center text-gray-900 p-2">{{team.name}}</div>
                     <div class="text-2xl text-gray-900 p-2 text-center">{{team.points}} puntos</div>
                     <div class="divide-y divide-gray-300/50">
                         <div v-if="state===0">
                             <div class="pt-4 text-base leading-7 text-gray-600 ">
                                 <p class="text-xl text-gray-900 text-center">Dinero total disponible: 1000000 USD</p>
-                                <p class="text-xl text-gray-900 text-center">Clickea sobre un piloto para cambiarlo</p>
                                 <p class="text-xl font-bold text-center">Pilotos seleccionados:</p>
                                 <div class="grid xl:grid-cols-2 sm:grid-cols-1 gap-4 my-4">
                                     <DriverFormCard 

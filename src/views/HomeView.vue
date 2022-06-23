@@ -252,7 +252,6 @@ export default {
   methods:{
     async getTeam(){
       this.token = await this.$auth0.getAccessTokenSilently();
-      console.log(this.token);
       const response = await fetch(`${f1API}teams/`, {
         method: 'GET',
         headers: {
@@ -268,12 +267,10 @@ export default {
     async getNextRace(){
       const response = await fetch(`${f1API}races/next`);
       this.race = await response.json();
-      //console.log(this.race)
     },
     async getDrivers(id){
       const response = await fetch(`${f1API}drivers_in_teams/${id}`);
       this.drivers = await response.json();
-      //console.log(this.drivers)
     },
     async createTeam(){
       const name = document.getElementById("createName");

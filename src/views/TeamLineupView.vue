@@ -150,12 +150,10 @@ export default {
         async getDrivers(id){
             const response = await fetch(`${f1API}drivers_in_teams/${id}`);
             this.drivers = await response.json();
-            //console.log(this.drivers)
         },
         async getDriverList(id){
             const response = await fetch(`${f1API}drivers/points`);
             this.driverList = await response.json();
-            //console.log(this.driverList)
         },
         async sendDrivers(){
             const response = await fetch(`${f1API}drivers_in_teams/${this.team.id}`, {

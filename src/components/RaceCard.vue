@@ -6,7 +6,7 @@
         :src="`https://countryflagsapi.com/svg/${race.country_code}`"
         alt=""
     />
-    <div class="relative p-8">
+    <div class="relative p-8 flex flex-col justify-center items-center">
         <p class="text-2xl font-bold text-white text-center">{{race.city}}</p>
         <p class="text-sm font-bold tracking-widest text-white uppercase">
             Fecha:{{race.date}}

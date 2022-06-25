@@ -10,10 +10,13 @@
     "@auth0/auth0-vue": "^1.0.1",
     "@headlessui/vue": "^1.6.3",
     "@vue-hero-icons/outline": "^1.7.2",
+    "@vuelidate/core": "^2.0.0-alpha.42",
+    "@vuelidate/validators": "^2.0.0-alpha.30",
     "bootstrap-icons": "^1.8.2",
     "pinia": "^2.0.13",
     "vue": "^3.2.33",
-    "vue-router": "^4.0.14"
+    "vue-router": "^4.0.14",
+    "vuelidate": "^0.7.7"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.1",

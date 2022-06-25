@@ -94,8 +94,11 @@
                 </div>
                 <div class="modal-body relative p-4">
                   <div>
-                    <label class="sr-only" for="createName">Nombre</label>
-                    <input type="text" id="createName" @change="enableCreateButton()" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <label class="sr-only">Nombre</label>
+                    <input type="text" v-model="state.nombre" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <span v-if="v$.nombre.$error">
+                      Ingresa un nombre valido
+                    </span>
                   </div>
                 </div>
                 <div class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
@@ -128,8 +131,11 @@
                 </div>
                 <div class="modal-body relative p-4">
                   <div>
-                    <label class="sr-only" for="updateName">Nombre</label>
-                    <input type="text" id="updateName" @click="enableChangeButton()" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" :value="`${team.name}`">
+                    <label class="sr-only">Nombre</label>
+                    <input type="text" v-model="state.nombre" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <span v-if="v$.nombre.$error">
+                      {{v$.nombre.$errors[0].$message}}
+                    </span>
                   </div>
                 </div>
                 <div class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
@@ -222,6 +228,9 @@
 
 <script>
 import { useAuth0 } from '@auth0/auth0-vue';
+import useValidate from '@vuelidate/core';
+import {required} from '@vuelidate/validators';
+import {reactive, computed} from 'vue';
 
 const f1API = "https://f1fantasy-api.herokuapp.com/";
 let race;
@@ -232,11 +241,23 @@ export default {
   setup(){
       const {isAuthenticated } = useAuth0();
       const { getAccessTokenSilently } = useAuth0();
+      const state = reactive({
+        nombre: '',
+      })
+      const rule = computed(()=>{
+        return {
+          nombre: {required}
+        }
+      })
+
+      const v$ = useValidate(rule,state)
       return {
         isAuthenticated,
         getToken: async () => {
           this.token = await getAccessTokenSilently();
-        }
+        },
+        state,
+        v$
       };
   },
   data(){
@@ -262,6 +283,7 @@ export default {
       this.team = await response.json();
       if (response.status === 200){
         this.hasTeam = true;
+        this.state.nombre = this.team.name;
       }
     },
     async getNextRace(){
@@ -273,29 +295,34 @@ export default {
       this.drivers = await response.json();
     },
     async createTeam(){
-      const name = document.getElementById("createName");
-      const response = await fetch(`${f1API}teams/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.token}`
-        },
-        body: JSON.stringify({name: name.value, user_id: "1"})
-      });
-      document.location.reload(true);
+      this.v$.$validate();
+      if (!this.v$.$error){
+        const response = await fetch(`${f1API}teams/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.token}`
+          },
+          body: JSON.stringify({name: this.state.nombre, user_id: "1"})
+        });
+        document.location.reload(true);
+      }else{
+        console.log(this.v$.nombre.$error)
+      }
     },
     async changeName(id){
-      const name = document.getElementById("updateName");
-      console.log(name);
-      const response = await fetch(`${f1API}teams/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.token}`
-        },
-        body: JSON.stringify({name: name.value})
-      });
-      document.location.reload(true);
+      this.v$.$validate();
+      if (!this.v$.$error){
+        const response = await fetch(`${f1API}teams/${id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.token}`
+          },
+          body: JSON.stringify({name: this.state.nombre})
+        });
+        document.location.reload(true);
+      }
     },
     async deleteTeam(id){
       const response = await fetch(`${f1API}teams/${id}`, {

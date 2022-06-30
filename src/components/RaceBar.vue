@@ -11,10 +11,10 @@
         </span>
         <p class="ml-3 mb-1 text-xl font-medium text-white truncate">
           <span class="md:hidden sm:inline">Proxima carrera:</span>
-          <span class="hidden md:inline sm:hidden">Proxima carrera: Baku Grand Prix - 12 de Junio</span>
+          <span class="hidden md:inline sm:hidden">Proxima carrera: {{propCity}} - Fecha: {{propDate}}</span>
         </p>
       </div>
-      <RouterLink to="/races/1">
+      <RouterLink :to="`/races/${propId}`">
         <div class="order-3 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
           <div class="hover:text-red-900 justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-red-700 bg-white">Ir a la carrera</div>
         </div>
@@ -26,6 +26,7 @@
 
 <script>
 export default{
-    name: 'RaceBar'
+  name: 'RaceBar',
+  props: ['propId', 'propCity', 'propDate'],
 }
 </script>

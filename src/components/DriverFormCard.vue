@@ -1,22 +1,18 @@
 <template>
-    <div class="w-52 rounded-full hover:scale-105 duration-500 mx-auto">
-        <button
-        class="relative block overflow-hidden bg-center bg-no-repeat bg-cover rounded-xl"
-        style="background-image: url(https://res.cloudinary.com/drbdzaro6/image/upload/v1652986503/Drivers/tkuye8uqu8ajka0fiwco.png)"
-        >
+    <div class="block overflow-hidden rounded-lg w-52 h-68">
+        <img class="object-cover w-full h-48" :src="`${propImage}`" alt="" />
 
-            <div class="relative p-8 pt-40 text-white bg-black bg-opacity-50">
-            <h5 class="text-2xl font-bold">Pierre Gasly</h5>
-            <p class="text-sm">AlphaTauri</p>
-            </div>
-        </button>
+        <div class="p-1 bg-red-900 text-center">
+            <h5 class="text-xl text-white">{{propName}}</h5>
+            <p class="text-md text-white uppercase">Valor: {{propValue}} USD</p>
+        </div>
     </div>
 </template>
 
 <script>
 export default {
     name: 'DriverFormCard',
-    props: ['driverId'],
+    props: ['propId', 'propName', 'propValue', 'propImage'],
     methods: {
         SendNewDriver(){
             alert(this.driverId)

@@ -1,22 +1,41 @@
 <template>
 <RouterLink :to="`/races/${propId}`">
-    <a
-    href=""
-    class="relative block overflow-hidden bg-center bg-cover rounded-xl"
-    style="background-image: url(https://countryflagsapi.com/svg/it)">
-
-        <div class="relative p-8 pt-20 text-white bg-black opacity-60 hover:opacity-80">
-            <h5 class="text-3xl font-bold">Imola Grand Prix</h5>
-            <p class="mb-0">Fecha: 24/4</p>
-        </div>
+    <a class="relative overflow-hidden h-40 block bg-black shadow-xl hover:scale-105 duration-500 group" href="">
+    <img
+        class="absolute inset-0 transition-opacity opacity-50  group-hover:opacity-50"
+        :src="`https://countryflagsapi.com/svg/${race.country_code}`"
+        alt=""
+    />
+    <div class="relative p-8 flex flex-col justify-center items-center">
+        <p class="text-2xl font-bold text-white text-center">{{race.city}}</p>
+        <p class="text-sm font-bold tracking-widest text-white uppercase">
+            Fecha:{{race.date}}
+        </p>
+    </div>
     </a>
 </RouterLink>
 </template>
 
 <script>
+const f1API = "https://f1fantasy-api.herokuapp.com/";
+
+let race;
+
 export default{
     name: 'RaceCard',
-    props: ['propId']
+    props: ['propId'],
+    data(){
+        race = this.getRace(this.propId);
+        return{
+            race,
+        }
+    },
+    methods:{
+        async getRace(id){
+            const response = await fetch(`${f1API}races/${id}`);
+            this.race = await response.json();
+        }
+    }
 }
 </script>
 

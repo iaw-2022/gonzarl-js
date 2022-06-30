@@ -1,10 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { authGuard } from '@auth0/auth0-vue'
 import HomeView from '../views/HomeView.vue'
 import DriverView from '../views/DriverView.vue'
 import RacesView from '../views/RacesView.vue'
 import RaceView from '../views/RaceView.vue'
+import CreateTeamView from '../views/CreateTeamView.vue'
 import TeamLineupView from '../views/TeamLineupView.vue'
-import ChangeTeamNameView from '../views/ChangeTeamNameView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,13 +19,15 @@ const router = createRouter({
       name: 'driver',
       component: DriverView
     },{
-      path: '/team/name',
-      name: 'teamName',
-      component: ChangeTeamNameView
-    },{
-      path: '/team/drivers',
+      path: '/team/drivers/:id',
       name: 'teamDrivers',
-      component: TeamLineupView
+      component: TeamLineupView,
+      beforeEnter: authGuard
+    },{
+      path: '/team/create/:id',
+      name: 'teamCreateDrivers',
+      component: CreateTeamView,
+      beforeEnter: authGuard
     },{
       path: '/races',
       name: 'races',

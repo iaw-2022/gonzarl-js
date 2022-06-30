@@ -21,6 +21,12 @@
           <div :class="{'bg-red-700': $route.path==='/races'}" class="text-white hover:bg-red-900 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Calendario</div>
         </RouterLink> 
       </li>
+      <li v-if="isAuthenticated">
+        <LogoutButton />
+      </li>
+      <li v-else>
+        <LoginButton />
+      </li>
       </ul>
     </div>
   </div>
@@ -30,7 +36,15 @@
 
 
 <script>
+import { useAuth0 } from '@auth0/auth0-vue';
 export default {
     name: 'Navbar',
+    setup(){
+      const {isAuthenticated } = useAuth0();
+
+      return {
+        isAuthenticated
+      };
+    }
 }
 </script>

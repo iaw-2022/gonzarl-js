@@ -17,6 +17,11 @@
         </RouterLink>
       </li>
       <li>
+        <RouterLink to="/standings">
+          <div :class="{'bg-red-700': $route.path==='/standings'}" class="text-white hover:bg-red-900 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Clasificacion</div>
+        </RouterLink>
+      </li>
+      <li>
         <RouterLink to="/races">
           <div :class="{'bg-red-700': $route.path==='/races'}" class="text-white hover:bg-red-900 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Calendario</div>
         </RouterLink> 

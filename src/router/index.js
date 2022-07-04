@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { authGuard } from '@auth0/auth0-vue'
 import HomeView from '../views/HomeView.vue'
+import StandingsView from '../views/StandingsView.vue'
+import ShowTeamView from '../views/ShowTeamView.vue'
 import DriverView from '../views/DriverView.vue'
 import RacesView from '../views/RacesView.vue'
 import RaceView from '../views/RaceView.vue'
@@ -29,6 +31,10 @@ const router = createRouter({
       component: CreateTeamView,
       beforeEnter: authGuard
     },{
+      path: '/team/:id',
+      name: 'showTeamView',
+      component: ShowTeamView
+    },{
       path: '/races',
       name: 'races',
       component: RacesView
@@ -36,6 +42,10 @@ const router = createRouter({
       path: '/races/:id',
       name: 'race',
       component: RaceView
+    },{
+      path: '/standings',
+      name: 'standings',
+      component: StandingsView
     }
   ]
 })
